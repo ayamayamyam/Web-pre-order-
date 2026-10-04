@@ -606,6 +606,16 @@ function buatPesan(d){
 }
 function kirimWA(teks){ window.open(`https://wa.me/${NOMOR_WA_TOKO}?text=${encodeURIComponent(teks)}`, '_blank'); }
 
+// Simpan otomatis pesanan ke form n8n (Google Sheets)
+const URL_FORM_PESANAN = 'https://ayamyam.app.n8n.cloud/form/input-pesanan';
+function simpanPesananOtomatis(teks){
+  try{
+    const fd = new FormData();
+    fd.append('field-0', teks);
+    fetch(URL_FORM_PESANAN, { method: 'POST', body: fd, mode: 'no-cors', keepalive: true }).catch(function(){});
+  }catch(e){}
+}
+
 function pesanCepat(){
   kirimWA(`Halo! Saya ingin bertanya / memesan *${BUKU.judul}* ${edisiTerpilih.nama} (${kertasTerpilih.nama} ${kertasTerpilih.gsm}, ${qty} buku).
 Mohon info ketersediaannya. Terima kasih! 🙏`);
@@ -780,6 +790,7 @@ function prosesPesanan(){
 
   const p = buatPesan({ nama, hp, pengiriman, asalSekolah, sekolahCustom, kelasTeks, lokasiTeks, alamatDetail, bayar, catatan });
   kirimWA(p.teks);
+  simpanPesananOtomatis(p.teks);
   document.getElementById('modalBox').innerHTML = `
     <div class="sukses">
       <div class="ikon">✅</div>
