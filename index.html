@@ -607,7 +607,7 @@ function buatPesan(d){
 function kirimWA(teks){ window.open(`https://wa.me/${NOMOR_WA_TOKO}?text=${encodeURIComponent(teks)}`, '_blank'); }
 
 // Simpan otomatis pesanan ke form n8n (Google Sheets)
-const URL_FORM_PESANAN = 'ayamammm.app.n8n.cloud';
+const URL_FORM_PESANAN = 'https://ayamammm.app.n8n.cloud/form/input-pesanan';
 function simpanPesananOtomatis(teks){
   try{
     const fd = new FormData();
